@@ -14,11 +14,13 @@ public class OnSystemMovement : MonoBehaviour
     [SerializeField] private OnSystemInputHandler playerInputHandler;
 
     private Vector3 currentMovement;
+    
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        currentMovement.y = -50f;
     }
 
     private void Update()
