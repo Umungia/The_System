@@ -6,7 +6,8 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
- 
+    [SerializeField] private PlayerHealth playerHealth;
+
 
     [Header("Floats")]
     [SerializeField] private float shootFreq = 5f;
@@ -46,8 +47,8 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
     void Update()
     {
         transform.LookAt(new Vector3(playerObject.position.x,transform.position.y, playerObject.position.z));
-   
         PlayerDetection();
+        PlayerDeath();
     }
 
     private void Patroll()
@@ -59,7 +60,6 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
             candidatePos = new Vector3(transform.position.x + Random.Range(minDist, maxDist), transform.position.y, transform.position.z + Random.Range(minDist, maxDist));
             direction = (candidatePos - transform.position).normalized;
             distance = Vector3.Distance(transform.position, candidatePos);
-            Debug.DrawRay(transform.position, direction * distance, Color.red, 2f);
             if (!Physics.Raycast(transform.position, direction, distance))
             {
 
@@ -80,7 +80,7 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
     {
         playerPos = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, playerObject.transform.position.z);
         playerDirection = (playerPos - transform.position).normalized;
-        Debug.DrawRay(transform.position, playerDirection * visionRange, Color.green, 2f);
+    
         if (Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, visionRange))
         {
             if (hit.collider.CompareTag("Player"))
@@ -88,7 +88,11 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
                 spriteRenderer.sprite = AlertSprite;
                 Shooting();
             }
-
+            else
+            {
+                spriteRenderer.sprite = IdleSprite;
+                Patroll();
+            }
         }
         else
         {
@@ -101,10 +105,28 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
         shootFreq -= Time.deltaTime;
         if (shootFreq <= 0)
         {
-
-            Debug.Log("Laser Shot");
+            if (Random.value <= 0.5)
+            {
+                Debug.Log("Laser Shot");
+                playerHealth.TakeDamage(Random.Range(10, 20));
+            }
+            else
+            {
+                Debug.Log("Shot Missed");
+            }
             shootFreq = shootFreqOG;
         }
     }
-
+    private void PlayerDeath()
+    {
+        if (playerHealth.playerIsDead)
+        {
+            speed = 0f;
+            if (spriteRenderer.sprite != IdleSprite)
+            {
+                spriteRenderer.sprite = IdleSprite;
+            }
+            visionRange = 0f;
+        }
+    }
 }

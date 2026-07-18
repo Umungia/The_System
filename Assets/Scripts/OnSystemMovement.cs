@@ -13,8 +13,9 @@ public class OnSystemMovement : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private OnSystemInputHandler playerInputHandler;
 
+    [Header("Floats")]
     private Vector3 currentMovement;
-    
+
 
     private void Start()
     {
@@ -57,5 +58,6 @@ public class OnSystemMovement : MonoBehaviour
 
         ApplyHorizontalRotation(mouseXRotation);
     }
-     
+
+
 }

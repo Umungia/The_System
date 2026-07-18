@@ -4,11 +4,13 @@ public class OnSystemStaticEnemy : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
-    [SerializeField] private float visionRange = 5f;
+ 
+    [SerializeField] private PlayerHealth playerHealth;
 
     [Header("Floats")]
     [SerializeField] private float shootFreq = 5f;
     private float shootFreqOG;
+    [SerializeField] private float visionRange = 5f;
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -26,14 +28,15 @@ public class OnSystemStaticEnemy : MonoBehaviour
         void Update()
     {
         transform.LookAt(new Vector3(playerObject.position.x,transform.position.y, playerObject.position.z));
+        PlayerDeath();
         PlayerDetection();
+        
     }
 
     private void PlayerDetection()
     {
         playerPos = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, playerObject.transform.position.z);
         playerDirection = (playerPos - transform.position).normalized;
-        Debug.DrawRay(transform.position, playerDirection * visionRange, Color.green, 2f);
         if (Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, visionRange))
         {
             if (hit.collider.CompareTag("Player"))
@@ -53,9 +56,29 @@ public class OnSystemStaticEnemy : MonoBehaviour
         shootFreq -= Time.deltaTime;
         if (shootFreq <= 0)
         {
-        
+            if (Random.value <= 0.5)
+            {
                 Debug.Log("Enemy Shooting");
-            shootFreq = shootFreqOG;
+                playerHealth.TakeDamage(Random.Range(5,15));
+            }
+            else
+            {
+                Debug.Log("Shot Missed");
+            }
+             shootFreq = shootFreqOG;
+        }
+    }
+    private void PlayerDeath()
+    {
+        if (playerHealth.playerIsDead)
+        {
+            
+            if (spriteRenderer.sprite != IdleSprite)
+            {
+                spriteRenderer.sprite = IdleSprite;
+            }
+            visionRange = 0f;
+
         }
     }
 }

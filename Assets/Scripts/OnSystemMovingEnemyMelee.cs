@@ -1,12 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class OnSystemMovingEnemyMelee : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
- 
+    [SerializeField] private PlayerHealth playerHealth;
 
     [Header("Floats")]
     [SerializeField] private float shootFreq = 5f;
@@ -17,21 +19,25 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
     [SerializeField] private float maxDist = 5f;
     [SerializeField] private float minDist = -5f;
     [SerializeField] private float visionRange = 5f;
-    private Vector3 randomPos, candidatePos;
-    
+
+
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite IdleSprite, AlertSprite;
 
 
+
     //Wall Detection Raycast
     private Vector3 direction;
     private float distance;
+    private Vector3 randomPos, candidatePos;
+
 
     //Player Detection Raycast
     private Vector3 playerPos;
     private Vector3 playerDirection;
+
 
     //Player Chase
     private Vector3 playerChasePos;
@@ -47,8 +53,9 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
     void Update()
     {
         transform.LookAt(new Vector3(playerObject.position.x,transform.position.y, playerObject.position.z));
-   
+        PlayerDeath();
         PlayerDetection();
+       
     }
 
     private void Patroll()
@@ -60,7 +67,6 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
             candidatePos = new Vector3(transform.position.x + Random.Range(minDist, maxDist), transform.position.y, transform.position.z + Random.Range(minDist, maxDist));
             direction = (candidatePos - transform.position).normalized;
             distance = Vector3.Distance(transform.position, candidatePos);
-            Debug.DrawRay(transform.position, direction * distance, Color.red, 2f);
             if (!Physics.Raycast(transform.position, direction, distance))
             {
 
@@ -78,12 +84,12 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
         playerChasePos = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
         transform.position = Vector3.MoveTowards(transform.position, playerChasePos, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, playerChasePos) < 0.2f)
-        {
-            
+        {    
             shootFreq -= Time.deltaTime;
             if (shootFreq <= 0)
             {
                 Debug.Log("Player Bitten");
+                playerHealth.TakeDamage(Random.Range(1,10));
                 shootFreq = shootFreqOG;
             }
             
@@ -97,7 +103,7 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
     {
         playerPos = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, playerObject.transform.position.z);
         playerDirection = (playerPos - transform.position).normalized;
-        Debug.DrawRay(transform.position, playerDirection * visionRange, Color.green, 2f);
+ 
         if (Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, visionRange))
         {
             if (hit.collider.CompareTag("Player"))
@@ -105,7 +111,11 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
                 spriteRenderer.sprite = AlertSprite;
                 Chase();
             }
-         
+            else
+            {
+                spriteRenderer.sprite = IdleSprite;
+                Patroll();
+            }
         }
         else
         {
@@ -113,5 +123,20 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
             Patroll();
         }
     }
+    private void PlayerDeath()
+    {
+        if (playerHealth.playerIsDead)
+        { 
+            speed=0f;
+            if (spriteRenderer.sprite != IdleSprite)
+            {
+                spriteRenderer.sprite = IdleSprite;
+            }
+            visionRange = 0f;
+        }
+    }
+
+
+
 
 }
