@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
-public class OnSystemMovingEnemy : MonoBehaviour
+public class OnSystemMovingEnemyLaser : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
@@ -33,8 +33,7 @@ public class OnSystemMovingEnemy : MonoBehaviour
     private Vector3 playerPos;
     private Vector3 playerDirection;
 
-    //Player Chase
-    private Vector3 playerChasePos;
+
 
 
     private void Start()
@@ -73,25 +72,9 @@ public class OnSystemMovingEnemy : MonoBehaviour
 
     }
 
-    private void Chase()
-    {
-        playerChasePos = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, playerChasePos, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, playerChasePos) < 0.2f)
-        {
-            
-            shootFreq -= Time.deltaTime;
-            if (shootFreq <= 0)
-            {
-                Debug.Log("Player Bitten");
-                shootFreq = shootFreqOG;
-            }
-            
-        }
-        
-    }
 
- 
+
+
 
     private void PlayerDetection()
     {
@@ -103,14 +86,24 @@ public class OnSystemMovingEnemy : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 spriteRenderer.sprite = AlertSprite;
-                Chase();
+                Shooting();
             }
-         
+
         }
         else
         {
             spriteRenderer.sprite = IdleSprite;
             Patroll();
+        }
+    }
+    private void Shooting()
+    {
+        shootFreq -= Time.deltaTime;
+        if (shootFreq <= 0)
+        {
+
+            Debug.Log("Laser Shot");
+            shootFreq = shootFreqOG;
         }
     }
 
