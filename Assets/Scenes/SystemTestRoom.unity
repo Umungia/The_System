@@ -850,6 +850,7 @@ GameObject:
   - component: {fileID: 407432102}
   - component: {fileID: 407432104}
   - component: {fileID: 407432105}
+  - component: {fileID: 407432106}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -916,15 +917,6 @@ MonoBehaviour:
   characterController: {fileID: 407432102}
   playerCamera: {fileID: 330585545}
   playerInputHandler: {fileID: 1884957656}
-  weaponImage: {fileID: 979489350}
-  idleSprite: {fileID: 21300000, guid: 7c1b853ea20a219468fc88f8cc12bb46, type: 3}
-  shootingSprite: {fileID: 21300000, guid: 0e8a56dbc1f00ff43918daa9c115607e, type: 3}
-  shootRange: 100
-  gunDamage: 10
-  spriteTimeOnScreen: 0.5
-  spriteTimeOnScreenOG: 0
-  shootFreq: 2
-  shootFreqOG: 0
 --- !u!114 &407432105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +932,52 @@ MonoBehaviour:
   healthText: {fileID: 310694316}
   health: 100
   playerIsDead: 0
+--- !u!114 &407432106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407432101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9c74361f063cf47aa5052db191ac9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnSystemWeapons
+  playerInputHandler: {fileID: 1884957656}
+  weaponImage: {fileID: 979489350}
+  idleSprite: {fileID: 21300000, guid: 7c1b853ea20a219468fc88f8cc12bb46, type: 3}
+  shootingSprite: {fileID: 21300000, guid: 0e8a56dbc1f00ff43918daa9c115607e, type: 3}
+  shootRange: 100
+  gunDamage: 10
+  spriteTimeOnScreen: 0.5
+  spriteTimeOnScreenOG: 0
+  shootFreq: 0.5
+  shootFreqOG: 0
+  pistolSprite: {fileID: 21300000, guid: 7c1b853ea20a219468fc88f8cc12bb46, type: 3}
+  pistolShootingSprite: {fileID: 21300000, guid: 0e8a56dbc1f00ff43918daa9c115607e, type: 3}
+  shotgunSprite: {fileID: 21300000, guid: 18e5f59f30dc8aa47b4a2864765281c1, type: 3}
+  shotgunShootingSprite: {fileID: 21300000, guid: 67f968947d89224419c921c908195558, type: 3}
+  ak47Sprite: {fileID: 21300000, guid: 448e6e40f56ee954186bd7b9c1c8645c, type: 3}
+  ak47ShootingSprite: {fileID: 21300000, guid: 6ea01d8bb7b763a41b0d6d8ea478aeb8, type: 3}
+  pistolLoadedBullets: 7
+  pistolMagazineCap: 7
+  pistolSavedBullets: 14
+  pistolDamage: 5
+  pistolShootRange: 50
+  pistolShootFreq: 0.5
+  shotgunLoadedBullets: 6
+  shotgunMagazineCap: 6
+  shotgunSavedBullets: 12
+  shotgunDamage: 15
+  shotgunShootRange: 10
+  shotgunShootFreq: 2
+  ak47LoadedBullets: 30
+  ak47MagazineCap: 30
+  ak47SavedBullets: 90
+  ak47Damage: 5
+  ak47ShootRange: 75
+  ak47ShootFreq: 0.1
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,6 +1941,7 @@ MonoBehaviour:
   rotation: Look
   attack: Attack
   interact: Interact
+  gunSelection: GunSelection
 --- !u!4 &1884957657
 Transform:
   m_ObjectHideFlags: 0

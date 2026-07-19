@@ -14,15 +14,18 @@ public class OnSystemInputHandler : MonoBehaviour
     [SerializeField] private string rotation = "Look";
     [SerializeField] private string attack = "Attack";
     [SerializeField] private string interact = "Interact";
+    [SerializeField] private string gunSelection = "GunSelection";
 
     private InputAction movementAction;
     private InputAction rotationAction;
     private InputAction attackAction;
     private InputAction interactAction;
+    private InputAction gunSelectionAction;
 
 
     public Vector2 movementInput { get; private set; }
     public Vector2 rotationInput { get; private set; }
+    public Vector2 gunSelectionInput { get; private set; }
     public bool attackTriggered{ get; private set; }
     public bool interactionTrigered { get; private set; }
 
@@ -34,10 +37,19 @@ public class OnSystemInputHandler : MonoBehaviour
         rotationAction = mapReference.FindAction(rotation);
         attackAction = mapReference.FindAction(attack);
         interactAction = mapReference.FindAction(interact);
+        gunSelectionAction = mapReference.FindAction(gunSelection);
 
         SubscribeActionValuesToInputEvents();
     }
 
+    private void Update()
+    {
+        if (gunSelectionInput != Vector2.zero)
+        {
+            Debug.Log(gunSelectionInput);
+        }
+        
+    }
     private void SubscribeActionValuesToInputEvents()
     {
         movementAction.performed += inputInfo => movementInput = inputInfo.ReadValue<Vector2>();
@@ -46,11 +58,16 @@ public class OnSystemInputHandler : MonoBehaviour
         rotationAction.performed += inputInfo => rotationInput = inputInfo.ReadValue<Vector2>();
         rotationAction.canceled += inputInfo => rotationInput = Vector2.zero;
 
+        gunSelectionAction.performed += inputInfo => gunSelectionInput = inputInfo.ReadValue<Vector2>();
+        gunSelectionAction.canceled += inputInfo => gunSelectionInput = Vector2.zero;
+
         attackAction.performed += inputInfo => attackTriggered = true;
         attackAction.canceled += inputInfo => attackTriggered = false;
 
         interactAction.performed += inputInfo => interactionTrigered = true;
         interactAction.canceled += inputInfo => interactionTrigered = false;
+
+
     }
 
     private void OnEnable()

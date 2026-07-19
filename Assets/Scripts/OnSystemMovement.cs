@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class OnSystemMovement : MonoBehaviour
 {
@@ -13,17 +13,9 @@ public class OnSystemMovement : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private OnSystemInputHandler playerInputHandler;
-    [SerializeField] private Image weaponImage;
-    [SerializeField] private Sprite idleSprite, shootingSprite;
 
 
-    [Header("Floats")]
-    [SerializeField] private float shootRange = 100f;
-    [SerializeField] private float gunDamage = 10f;
-    [SerializeField] private float spriteTimeOnScreen = 0.5f;
-    [SerializeField] private float spriteTimeOnScreenOG;
-    [SerializeField] private float shootFreq = 0.5f;
-    [SerializeField] private float shootFreqOG;
+
    
     private Vector3 currentMovement;
 
@@ -33,15 +25,14 @@ public class OnSystemMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         currentMovement.y = -50f;
-        spriteTimeOnScreenOG = spriteTimeOnScreen;
-        shootFreqOG = shootFreq;
+
     }
 
     private void Update()
     {
         HandleMovement();
         HandleRotation();
-        Shooting();
+
     }
 
     private Vector3 CalculateWorldDirection()
@@ -73,41 +64,5 @@ public class OnSystemMovement : MonoBehaviour
         ApplyHorizontalRotation(mouseXRotation);
     }
 
-    private void Shooting()
-    {
-        shootFreq -= Time.deltaTime;
-        if (playerInputHandler.attackTriggered)
-        {
-            playerInputHandler.ConsumeAttack();
-           
-            if (shootFreq <= 0)
-            {
-                shootFreq = shootFreqOG;
-                weaponImage.sprite = shootingSprite;
-                spriteTimeOnScreen = spriteTimeOnScreenOG;
-
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootRange))
-                {
-                    if (hit.collider.CompareTag("Enemy"))
-                    {
-                        hit.collider.gameObject.GetComponent<OnSystemEnemyHealth>().HurtEnemy(gunDamage);
-
-                    }
-                }
-
-            }  
-        }
-        else
-        {
-            if (spriteTimeOnScreen > 0)
-            {
-                spriteTimeOnScreen -= Time.deltaTime;
-            }
-            else
-            {
-                weaponImage.sprite = idleSprite;
-            }
-        }
-        
-    }
+    
 }
