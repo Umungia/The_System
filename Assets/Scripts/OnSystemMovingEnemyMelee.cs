@@ -8,7 +8,8 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private OnSystemPlayerHealth playerHealth;
+    [SerializeField] private OnSystemEnemyHealth enemyHealth;
 
     [Header("Floats")]
     [SerializeField] private float shootFreq = 5f;
@@ -24,7 +25,7 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite IdleSprite, AlertSprite;
+    [SerializeField] private Sprite IdleSprite, AlertSprite, deathSprite;
 
 
 
@@ -54,8 +55,11 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
     {
         transform.LookAt(new Vector3(playerObject.position.x,transform.position.y, playerObject.position.z));
         PlayerDeath();
-        PlayerDetection();
-       
+        if (!playerHealth.playerIsDead && !enemyHealth.isDead)
+        {
+            PlayerDetection();
+        }
+        Death();
     }
 
     private void Patroll()
@@ -135,7 +139,14 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
             visionRange = 0f;
         }
     }
-
+    private void Death()
+    {
+        if (enemyHealth.isDead)
+        {
+            speed = 0f;
+            spriteRenderer.sprite = deathSprite;
+        }
+    }
 
 
 

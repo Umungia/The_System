@@ -62,4 +62,9 @@ public class OnSystemInputHandler : MonoBehaviour
     {
         PlayerControls.FindActionMap(actionMapName).Disable();
     }
+
+    public void ConsumeAttack()
+    {
+        attackTriggered = false;
+    }
 }

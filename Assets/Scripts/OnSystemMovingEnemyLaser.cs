@@ -1,12 +1,13 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class OnSystemMovingEnemyLaser : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerObject;
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private OnSystemPlayerHealth playerHealth;
+    [SerializeField] private OnSystemEnemyHealth enemyHealth;
+
 
 
     [Header("Floats")]
@@ -19,11 +20,11 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
     [SerializeField] private float minDist = -5f;
     [SerializeField] private float visionRange = 5f;
     private Vector3 randomPos, candidatePos;
-    
+
 
     [Header("Sprites")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite IdleSprite, AlertSprite;
+    [SerializeField] private Sprite IdleSprite, AlertSprite, deathSprite;
 
 
     //Wall Detection Raycast
@@ -42,18 +43,22 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
         shootFreqOG = shootFreq;
         stayTimeOG = stayTime;
         randomPos = transform.position;
-      
+
     }
     void Update()
     {
-        transform.LookAt(new Vector3(playerObject.position.x,transform.position.y, playerObject.position.z));
-        PlayerDetection();
+        transform.LookAt(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z));
+        if (!playerHealth.playerIsDead && !enemyHealth.isDead)
+        {
+            PlayerDetection();
+        }
         PlayerDeath();
+        Death();
     }
 
     private void Patroll()
     {
-     
+
         stayTime -= Time.deltaTime;
         if (stayTime <= 0 && Vector3.Distance(transform.position, randomPos) < 0.1f)
         {
@@ -66,7 +71,7 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
                 stayTime = stayTimeOG;
                 randomPos = candidatePos;
             }
-          
+
         }
         transform.position = Vector3.MoveTowards(transform.position, randomPos, speed * Time.deltaTime);
 
@@ -80,7 +85,7 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
     {
         playerPos = new Vector3(playerObject.transform.position.x, playerObject.transform.position.y, playerObject.transform.position.z);
         playerDirection = (playerPos - transform.position).normalized;
-    
+
         if (Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, visionRange))
         {
             if (hit.collider.CompareTag("Player"))
@@ -127,6 +132,14 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
                 spriteRenderer.sprite = IdleSprite;
             }
             visionRange = 0f;
+        }
+    }
+    private void Death()
+    {
+        if (enemyHealth.isDead)
+        {
+            speed = 0f;
+            spriteRenderer.sprite = deathSprite;
         }
     }
 }

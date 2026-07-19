@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class PlayerHealth : MonoBehaviour
+public class OnSystemPlayerHealth : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private TMP_Text healthText;
