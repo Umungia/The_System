@@ -695,7 +695,7 @@
                 {
                     "name": "",
                     "id": "436c3f71-480d-45d5-ab04-684c549e43e1",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -787,6 +787,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
+                    "action": "GunSelection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ba0bb3f-5ddd-4d1a-94cd-d5ecfba63456",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "GunSelection",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -42,14 +42,7 @@ public class OnSystemInputHandler : MonoBehaviour
         SubscribeActionValuesToInputEvents();
     }
 
-    private void Update()
-    {
-        if (gunSelectionInput != Vector2.zero)
-        {
-            Debug.Log(gunSelectionInput);
-        }
-        
-    }
+
     private void SubscribeActionValuesToInputEvents()
     {
         movementAction.performed += inputInfo => movementInput = inputInfo.ReadValue<Vector2>();

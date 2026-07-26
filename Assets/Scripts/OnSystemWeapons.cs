@@ -1,5 +1,9 @@
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI;
+
+
+
 
 public class OnSystemWeapons : MonoBehaviour
 {
@@ -24,20 +28,24 @@ public class OnSystemWeapons : MonoBehaviour
     [SerializeField] private Sprite ak47Sprite;
     [SerializeField] private Sprite ak47ShootingSprite;
 
+    [Header("Gun Enablers")]
+    private bool hasShotgun = false;
+    private bool hasAk47 = false;
 
+   
 
-    
     //General Gun Variables
     private int selectedGun;
     private int loadedBullets;
     private int magazineCap;
-    private int savedBullets;
+    private int scrollDirection;
+
+
     private bool isAutomatic;
     //Pistol
     [Header("GunBullets")]
     [SerializeField] private int pistolLoadedBullets = 7;
     [SerializeField] private int pistolMagazineCap = 7;
-    [SerializeField] private int pistolSavedBullets = 14;
     [SerializeField] private int pistolDamage = 5;
     [SerializeField] private float pistolShootRange = 50f;
     [SerializeField] private float pistolShootFreq = 0.5f;
@@ -45,7 +53,6 @@ public class OnSystemWeapons : MonoBehaviour
     //Shotgun
     [SerializeField] private int shotgunLoadedBullets = 6;
     [SerializeField] private int shotgunMagazineCap = 6;
-    [SerializeField] private int shotgunSavedBullets = 12;
     [SerializeField] private int shotgunDamage = 15;
     [SerializeField] private float shotgunShootRange = 10f;
     [SerializeField] private float shotgunShootFreq = 2;
@@ -53,17 +60,16 @@ public class OnSystemWeapons : MonoBehaviour
     //Ak-47
     [SerializeField] private int ak47LoadedBullets = 30;
     [SerializeField] private int ak47MagazineCap = 30;
-    [SerializeField] private int ak47SavedBullets = 90;
     [SerializeField] private int ak47Damage = 5;
     [SerializeField] private float ak47ShootRange = 75f;
     [SerializeField] private float ak47ShootFreq = 0.5f;
 
+ 
     void Start()
     {
         spriteTimeOnScreenOG = spriteTimeOnScreen;
         selectedGun = 1;
         loadedBullets = pistolLoadedBullets;
-        savedBullets = pistolSavedBullets;
     }
 
     void Update()
@@ -123,27 +129,82 @@ public class OnSystemWeapons : MonoBehaviour
             {
                 case 1:
                     pistolLoadedBullets = loadedBullets;
-                    pistolSavedBullets = savedBullets;
-                  
+
                     break;
                 case 2:
                     shotgunLoadedBullets = loadedBullets;
-                    shotgunSavedBullets = savedBullets;
-          
+
                     break;
                 case 3:
                     ak47LoadedBullets = loadedBullets;
-                    ak47SavedBullets = savedBullets;
-    
+
                     break;
             }
-            if (playerInputHandler.gunSelectionInput.y > 0)
+            scrollDirection = (int)playerInputHandler.gunSelectionInput.y;
+
+            selectedGun += scrollDirection;
+            if (selectedGun > 3) selectedGun = 1;
+            if (selectedGun < 1) selectedGun = 3;
+
+            while ((selectedGun == 2 && hasShotgun == false) || (selectedGun == 3 && hasAk47 == false))
             {
-                selectedGun += 1;
+                selectedGun += scrollDirection;
+                if (selectedGun > 3)
+                {
+                    selectedGun = 1;
+                }
+
+                if (selectedGun < 1)
+                {
+                    selectedGun = 3;
+                }
             }
-            else
+            switch (selectedGun)
             {
-                selectedGun -= 1;
+                case 1:
+                    gunDamage = pistolDamage;
+                    shootFreqOG = pistolShootFreq;
+                    magazineCap = pistolMagazineCap;
+                    loadedBullets = pistolLoadedBullets;
+                    shootRange = pistolShootRange;
+                    idleSprite = pistolSprite;
+                    shootingSprite = pistolShootingSprite;
+                    isAutomatic = false;
+                    break;
+                case 2:
+                    if (hasShotgun == true)
+                    {
+                        gunDamage = shotgunDamage;
+                        shootFreqOG = shotgunShootFreq;
+                        magazineCap = shotgunMagazineCap;
+                        loadedBullets = shotgunLoadedBullets;
+                        shootRange = shotgunShootRange;
+                        idleSprite = shotgunSprite;
+                        shootingSprite = shotgunShootingSprite;
+                        isAutomatic = false;
+                    }
+                    else
+                    {
+                        selectedGun += 1;
+                    }
+                    break;
+                case 3:
+                    if (hasAk47 == true)
+                    {
+                        gunDamage = ak47Damage;
+                        shootFreqOG = ak47ShootFreq;
+                        magazineCap = ak47MagazineCap;
+                        loadedBullets = ak47LoadedBullets;
+                        shootRange = ak47ShootRange;
+                        idleSprite = ak47Sprite;
+                        shootingSprite = ak47ShootingSprite;
+                        isAutomatic = true;
+                    }
+                    else
+                    {
+                        selectedGun += 1;
+                    }
+                    break;
             }
             if (selectedGun > 3)
             {
@@ -154,44 +215,18 @@ public class OnSystemWeapons : MonoBehaviour
             {
                 selectedGun = 3;
             }
+        }
+    }
 
-
-            switch (selectedGun)
-            {
-                case 1:
-                    gunDamage = pistolDamage;
-                    shootFreqOG = pistolShootFreq;
-                    magazineCap = pistolMagazineCap;
-                    loadedBullets = pistolLoadedBullets;
-                    savedBullets = pistolSavedBullets;
-                    shootRange = pistolShootRange;
-                    idleSprite = pistolSprite;
-                    shootingSprite = pistolShootingSprite;
-                    isAutomatic = false;
-                    break;
-                case 2:
-                    gunDamage = shotgunDamage;
-                    shootFreqOG = shotgunShootFreq;
-                    magazineCap = shotgunMagazineCap;
-                    loadedBullets = shotgunLoadedBullets;
-                    savedBullets = shotgunSavedBullets;
-                    shootRange = shotgunShootRange;
-                    idleSprite = shotgunSprite;
-                    shootingSprite = shotgunShootingSprite;
-                    isAutomatic = false;
-                    break;
-                case 3:
-                    gunDamage = ak47Damage;
-                    shootFreqOG = ak47ShootFreq;
-                    magazineCap = ak47MagazineCap;
-                    loadedBullets = ak47LoadedBullets;
-                    savedBullets = ak47SavedBullets;
-                    shootRange = ak47ShootRange;
-                    idleSprite = ak47Sprite;
-                    shootingSprite = ak47ShootingSprite;
-                    isAutomatic = true;
-                    break;
-            }
+    public void GetGun(WeaponType gunType)
+    {
+        if (gunType == WeaponType.Shotgun)
+        {
+            hasShotgun = true;
+        }
+        if (gunType == WeaponType.Ak47)
+        {
+            hasAk47 = true;
         }
     }
 }
