@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class OnSystemWeapons : MonoBehaviour
     [SerializeField] private OnSystemInputHandler playerInputHandler;
     [SerializeField] private Image weaponImage;
     [SerializeField] private Sprite idleSprite, shootingSprite;
+    [SerializeField] private TMP_Text bulletText;
 
     [Header("Floats")]
     [SerializeField] private float shootRange = 100f;
@@ -88,11 +90,14 @@ public class OnSystemWeapons : MonoBehaviour
                 playerInputHandler.ConsumeAttack();
             }
 
-            if (shootFreq <= 0)
+            if (shootFreq <= 0 && loadedBullets > 0)
             {
+                loadedBullets -= 1;
+                bulletText.text = "Ammo: " + loadedBullets;
                 shootFreq = shootFreqOG;
                 weaponImage.sprite = shootingSprite;
                 spriteTimeOnScreen = spriteTimeOnScreenOG;
+
 
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, shootRange))
                 {
@@ -216,6 +221,7 @@ public class OnSystemWeapons : MonoBehaviour
                 selectedGun = 3;
             }
         }
+        bulletText.text = "Ammo: " + loadedBullets;
     }
 
     public void GetGun(WeaponType gunType)
@@ -227,6 +233,54 @@ public class OnSystemWeapons : MonoBehaviour
         if (gunType == WeaponType.Ak47)
         {
             hasAk47 = true;
+        }
+    }
+    public void GetBullet(BulletType bulletType)
+    {
+        if (bulletType == BulletType.Pistol)
+        {
+            if (selectedGun == 1)
+            {
+                loadedBullets += 10;
+            }
+            else
+            {
+                pistolLoadedBullets += 10;
+            }
+            if (pistolLoadedBullets > pistolMagazineCap)
+            {
+                pistolLoadedBullets = pistolMagazineCap;
+            }
+        }
+        if (bulletType == BulletType.Shotgun)
+        {
+            if (selectedGun == 2)
+            {
+                loadedBullets += 10;
+            }
+            else
+            {
+                shotgunLoadedBullets += 10;
+            }
+            if (shotgunLoadedBullets > shotgunMagazineCap)
+            {
+                shotgunLoadedBullets = shotgunMagazineCap;
+            }
+        }
+        if (bulletType == BulletType.Ak47)
+        {
+            if (selectedGun == 3)
+            {
+                loadedBullets += 20;
+            }
+            else
+            {
+                ak47LoadedBullets += 20;
+            }
+            if (ak47LoadedBullets > ak47MagazineCap)
+            {
+                ak47LoadedBullets = ak47MagazineCap;
+            }
         }
     }
 }

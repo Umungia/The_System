@@ -21,4 +21,13 @@ public class OnSystemPlayerHealth : MonoBehaviour
             playerIsDead = true;
         }
     }
+    public void HealPlayer()
+    {
+        health += 20f;
+        if (health > 100f)
+        {
+            health = 100f;
+        }
+        healthText.text = "Health: " + health;
+    }
 }

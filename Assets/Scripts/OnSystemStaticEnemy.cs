@@ -59,16 +59,8 @@ public class OnSystemStaticEnemy : MonoBehaviour
         shootFreq -= Time.deltaTime;
         if (shootFreq <= 0)
         {
-            if (Random.value <= 0.5)
-            {
-                Debug.Log("Enemy Shooting");
-                playerHealth.TakeDamage(Random.Range(5,15));
-            }
-            else
-            {
-                Debug.Log("Shot Missed");
-            }
-             shootFreq = shootFreqOG;
+            playerHealth.TakeDamage(Random.Range(10, 20));
+            shootFreq = shootFreqOG;
         }
     }
     private void PlayerDeath()

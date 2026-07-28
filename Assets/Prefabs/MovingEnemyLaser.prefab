@@ -291,14 +291,14 @@ MonoBehaviour:
   playerObject: {fileID: 0}
   playerHealth: {fileID: 0}
   enemyHealth: {fileID: 7910524702983338722}
-  shootFreq: 5
+  shootFreq: 3
   shootFreqOG: 0
   stayTime: 5
   stayTimeOG: 0
   speed: 3
   maxDist: 5
   minDist: -5
-  visionRange: 10
+  visionRange: 25
   spriteRenderer: {fileID: 5039490332369693842}
   IdleSprite: {fileID: 21300000, guid: de5a9044d676eb74a94afd421e65677d, type: 3}
   AlertSprite: {fileID: 21300000, guid: 47d87ad3224ebe34990f9c0fc5a30700, type: 3}

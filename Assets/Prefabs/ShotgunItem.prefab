@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2915637868202895414}
   - component: {fileID: 4984141908129723458}
-  - component: {fileID: 1382991634158026072}
   - component: {fileID: 5022061830114363888}
   - component: {fileID: 8779723217069464672}
   - component: {fileID: 8161117665787647702}
@@ -95,19 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1382991634158026072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6877892617308964122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 492ae1b33c4c6e94ebc6a11d8fd2efc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
-  weaponType: 0
 --- !u!65 &5022061830114363888
 BoxCollider:
   m_ObjectHideFlags: 0

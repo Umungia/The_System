@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6307510034084958247
+--- !u!1 &5456496714841177156
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4239861593445651544}
-  - component: {fileID: 6847894789669742185}
-  - component: {fileID: 7512221493034895082}
-  - component: {fileID: 3300046493891363859}
-  - component: {fileID: 3181947132256312951}
+  - component: {fileID: 6710883654351755476}
+  - component: {fileID: 4274565666624374369}
+  - component: {fileID: 5981105344196464403}
+  - component: {fileID: 2632561476175507272}
+  - component: {fileID: 3365969660350360704}
   m_Layer: 0
-  m_Name: Ak-47Item
+  m_Name: +20HealthItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4239861593445651544
+--- !u!4 &6710883654351755476
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6307510034084958247}
+  m_GameObject: {fileID: 5456496714841177156}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.670002, y: 1.48, z: 3.48}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -4.48, y: 2.81, z: -5.71}
+  m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6847894789669742185
+--- !u!212 &4274565666624374369
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6307510034084958247}
+  m_GameObject: {fileID: 5456496714841177156}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 2ff68afaf7809fd4da387d17ff6d264d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 15d96f11c317afc499bfe0c82f23c710, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,13 +94,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!65 &7512221493034895082
+--- !u!65 &5981105344196464403
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6307510034084958247}
+  m_GameObject: {fileID: 5456496714841177156}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -113,15 +113,15 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.64, y: 0.64, z: 0.2}
+  m_Size: {x: 0.64, y: 0.64, z: 0.64}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3300046493891363859
+--- !u!54 &2632561476175507272
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6307510034084958247}
+  m_GameObject: {fileID: 5456496714841177156}
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
@@ -142,18 +142,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3181947132256312951
+--- !u!114 &3365969660350360704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6307510034084958247}
+  m_GameObject: {fileID: 5456496714841177156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12714dc076dc21342affdb5bd7119f99, type: 3}
+  m_Script: {fileID: 11500000, guid: 3119b4be20f1c4e40b34bf42e0c75322, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnSystemWeaponPickup
+  m_EditorClassIdentifier: Assembly-CSharp::OnSystemHealthPickup
   playerObject: {fileID: 0}
-  weaponManager: {fileID: 0}
-  weaponType: 1
+  healthManager: {fileID: 0}

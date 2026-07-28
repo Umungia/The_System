@@ -110,16 +110,8 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
         shootFreq -= Time.deltaTime;
         if (shootFreq <= 0)
         {
-            if (Random.value <= 0.5)
-            {
-                Debug.Log("Laser Shot");
-                playerHealth.TakeDamage(Random.Range(10, 20));
-            }
-            else
-            {
-                Debug.Log("Shot Missed");
-            }
-            shootFreq = shootFreqOG;
+          playerHealth.TakeDamage(Random.Range(10, 20));
+          shootFreq = shootFreqOG;
         }
     }
     private void PlayerDeath()
