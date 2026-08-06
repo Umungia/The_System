@@ -1,34 +1,27 @@
 using UnityEngine;
 
-
-
-public enum WeaponType
+public enum KeyType
 {
-    Shotgun,
-    Ak47
+    Simple,
+    Base,
+    Master
 }
-public class OnSystemWeaponPickup : MonoBehaviour
+public class OnSystemKeyPickup : MonoBehaviour
 {
     [SerializeField] private Transform playerObject;
-    [SerializeField] private OnSystemWeapons weaponManager;
-    [SerializeField] private WeaponType weaponType;
-
-
-
-    void Update()
+    [SerializeField] private OnSystemKeys keyManager;
+    [SerializeField] private KeyType keyType;
+    void Start()
     {
-
         transform.LookAt(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z));
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Destroy(gameObject);
-            weaponManager.GetGun(weaponType);
+            keyManager.GetKey(keyType);
         }
     }
 }

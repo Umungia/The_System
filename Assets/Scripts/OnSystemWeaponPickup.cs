@@ -1,35 +1,27 @@
 using UnityEngine;
 
+public enum WeaponType
+{
+    Shotgun,
+    Ak47
+}
 public class WeaponPickup : MonoBehaviour
 {
+    [SerializeField] private Transform playerObject;
+    [SerializeField] private OnSystemWeapons weaponManager;
     [SerializeField] private WeaponType weaponType;
-    public enum WeaponType
-    {
-        Shotgun,
-        Ak47
-    }
-
-    void Start()
-    {
-
-    }
-
 
     void Update()
     {
-        GunSelection();
+        transform.LookAt(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z));
     }
 
-    private void GunSelection()
+    private void OnTriggerEnter(Collider other)
     {
-        switch (weaponType)
+        if (other.CompareTag("Player"))
         {
-            case WeaponType.Shotgun:
-                // desbloquear escopeta
-                break;
-            case WeaponType.Ak47:
-                // desbloquear AK
-                break;
+            Destroy(gameObject);
+            weaponManager.GetGun(weaponType);
         }
     }
 }

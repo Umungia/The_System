@@ -17,7 +17,6 @@ public class OnSystemPlayerHealth : MonoBehaviour
         healthText.text = "Health: " + health;
         if (health <= 0)
         {
-            Debug.Log("Player is dead");
             playerIsDead = true;
         }
     }

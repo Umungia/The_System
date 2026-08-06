@@ -107,6 +107,7 @@ public class OnSystemMovingEnemyLaser : MonoBehaviour
     }
     private void Shooting()
     {
+    
         shootFreq -= Time.deltaTime;
         if (shootFreq <= 0)
         {

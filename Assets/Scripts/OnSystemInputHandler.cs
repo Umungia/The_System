@@ -27,7 +27,7 @@ public class OnSystemInputHandler : MonoBehaviour
     public Vector2 rotationInput { get; private set; }
     public Vector2 gunSelectionInput { get; private set; }
     public bool attackTriggered{ get; private set; }
-    public bool interactionTrigered { get; private set; }
+    public bool interactionTriggered { get; private set; }
 
     private void Awake()
     {
@@ -57,8 +57,8 @@ public class OnSystemInputHandler : MonoBehaviour
         attackAction.performed += inputInfo => attackTriggered = true;
         attackAction.canceled += inputInfo => attackTriggered = false;
 
-        interactAction.performed += inputInfo => interactionTrigered = true;
-        interactAction.canceled += inputInfo => interactionTrigered = false;
+        interactAction.performed += inputInfo => interactionTriggered = true;
+        interactAction.canceled += inputInfo => interactionTriggered = false;
 
 
     }
@@ -77,4 +77,6 @@ public class OnSystemInputHandler : MonoBehaviour
     {
         attackTriggered = false;
     }
+
 }
+

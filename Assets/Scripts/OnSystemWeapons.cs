@@ -31,10 +31,10 @@ public class OnSystemWeapons : MonoBehaviour
     [SerializeField] private Sprite ak47ShootingSprite;
 
     [Header("Gun Enablers")]
-    private bool hasShotgun = false;
-    private bool hasAk47 = false;
+    [SerializeField] private bool hasShotgun = false;
+    [SerializeField]private bool hasAk47 = false;
 
-   
+
 
     //General Gun Variables
     private int selectedGun;
@@ -66,7 +66,7 @@ public class OnSystemWeapons : MonoBehaviour
     [SerializeField] private float ak47ShootRange = 75f;
     [SerializeField] private float ak47ShootFreq = 0.5f;
 
- 
+
     void Start()
     {
         spriteTimeOnScreenOG = spriteTimeOnScreen;
@@ -242,44 +242,61 @@ public class OnSystemWeapons : MonoBehaviour
             if (selectedGun == 1)
             {
                 loadedBullets += 10;
+                if (loadedBullets > pistolMagazineCap)
+                {
+                    loadedBullets = pistolMagazineCap;
+                }
             }
             else
             {
                 pistolLoadedBullets += 10;
+                if (pistolLoadedBullets > pistolMagazineCap)
+                {
+                    pistolLoadedBullets = pistolMagazineCap;
+                }
             }
-            if (pistolLoadedBullets > pistolMagazineCap)
-            {
-                pistolLoadedBullets = pistolMagazineCap;
-            }
+
         }
         if (bulletType == BulletType.Shotgun)
         {
-            if (selectedGun == 2)
+            if (selectedGun == 2 && hasShotgun == true)
             {
                 loadedBullets += 10;
+                if (loadedBullets > shotgunMagazineCap)
+                {
+                    loadedBullets = shotgunMagazineCap;
+                }
             }
             else
             {
                 shotgunLoadedBullets += 10;
+                if (shotgunLoadedBullets > shotgunMagazineCap)
+                {
+                    shotgunLoadedBullets = shotgunMagazineCap;
+                }
             }
-            if (shotgunLoadedBullets > shotgunMagazineCap)
-            {
-                shotgunLoadedBullets = shotgunMagazineCap;
-            }
+
         }
         if (bulletType == BulletType.Ak47)
         {
-            if (selectedGun == 3)
+            if (selectedGun == 3 && hasAk47 == true)
             {
                 loadedBullets += 20;
+                if (loadedBullets > ak47MagazineCap)
+                {
+                    loadedBullets = ak47MagazineCap;
+
+                }
             }
             else
             {
                 ak47LoadedBullets += 20;
-            }
-            if (ak47LoadedBullets > ak47MagazineCap)
-            {
-                ak47LoadedBullets = ak47MagazineCap;
+                if (ak47LoadedBullets > ak47MagazineCap)
+                {
+                    ak47LoadedBullets = ak47MagazineCap;
+
+                }
+            
             }
         }
     }

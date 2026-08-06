@@ -85,7 +85,8 @@ public class OnSystemMovingEnemyMelee : MonoBehaviour
 
     private void Chase()
     {
-        playerChasePos = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
+        randomPos = transform.position;
+       playerChasePos = new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z);
         transform.position = Vector3.MoveTowards(transform.position, playerChasePos, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, playerChasePos) < 0.2f)
         {    

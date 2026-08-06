@@ -20,7 +20,6 @@ public class OnSystemEnemyHealth : MonoBehaviour
         healthText.text = "Health: " + health;
         if (health <= 0)
         {
-            Debug.Log("Enemy is dead");
             isDead = true;
         }
     }

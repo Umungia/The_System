@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4984141908129723458}
   - component: {fileID: 5022061830114363888}
   - component: {fileID: 8779723217069464672}
-  - component: {fileID: 8161117665787647702}
+  - component: {fileID: 4719792480942417407}
   m_Layer: 0
   m_Name: ShotgunItem
   m_TagString: Untagged
@@ -142,7 +142,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8161117665787647702
+--- !u!114 &4719792480942417407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,9 +151,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6877892617308964122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12714dc076dc21342affdb5bd7119f99, type: 3}
+  m_Script: {fileID: 11500000, guid: 492ae1b33c4c6e94ebc6a11d8fd2efc2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OnSystemWeaponPickup
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   playerObject: {fileID: 0}
   weaponManager: {fileID: 0}
   weaponType: 0
