@@ -4,14 +4,15 @@ public enum KeyType
 {
     Simple,
     Base,
-    Master
+    Master,
+    None
 }
 public class OnSystemKeyPickup : MonoBehaviour
 {
     [SerializeField] private Transform playerObject;
     [SerializeField] private OnSystemKeys keyManager;
     [SerializeField] private KeyType keyType;
-    void Start()
+    void Update()
     {
         transform.LookAt(new Vector3(playerObject.position.x, transform.position.y, playerObject.position.z));
     }
